@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-client
+  namespace: grpc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpc-client
+      name: grpc-client
+  template:
+    metadata:
+      labels:
+        app: grpc-client
+        name: grpc-client
+    spec:
+      containers:
+        - name: grpc-client
+          image: wxlsh/grpc-client:latest
+          env:
+            - name: GRPC_SERVER_ADDRESS
+              value: "grpc-server.grpc.svc.cluster.local:50051"
